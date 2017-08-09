@@ -3,6 +3,9 @@
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'user-help',
+    moment: {
+     includeTimezone: 'all'
+    },
     environment: environment,
     rootURL: '/',
     locationType: 'auto',

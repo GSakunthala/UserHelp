@@ -1,0 +1,42 @@
+<form>
+{{#each fields as |field|}}
+{{user-help-page/user-input fieldName =field.id  label=field.label model=this}}
+{{/each}}
+
+ <button type="button" class="btn btn-outline-primary" {{action 'onCallMeBack'}} data-toggle="modal" data-target="#myModal"
+ disabled= {{this.validations.isInvalid}}>Submit</button>
+
+ {{#if isValidForm}}
+ <div class="modal fade row" role="dialog" id="myModal">
+  <div class="modal-dialog">
+   <div class="modal-content">
+ <div class='col-md-8'>
+<table class="table">
+<thead>
+<tr>
+<th>User</th>
+<th>Details</th>
+
+</tr></thead>
+<tbody>
+{{#each-in userDetails as |key value|}}
+<tr>
+<td>{{key}}</td>
+<td>{{value}}</td>
+</tr>
+
+{{/each-in}}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+ </div>
+
+  <div class="row text-center"><div class="col-md-8"><i>{{displayMsg}}</i></div></div>
+
+ {{/if}}
+
+</form>
+
+{{yield}}

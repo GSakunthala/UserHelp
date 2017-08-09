@@ -1,0 +1,14 @@
+<div class="form-group">
+<div class="row">
+	<label for={{fieldName}}>{{label}}</label>
+	{{input type="text"  class="form-control"  value=value name=fieldName  }}	
+</div>
+{{#if isError}}
+  <div class="form-control-feedback">
+        <i class="fa fa-exclamation-triangle"></i> {{v-get model fieldName 'message'}}
+  </div>
+{{/if}}
+</div>
+
+
+{{yield}}
