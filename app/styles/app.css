@@ -1,7 +1,10 @@
 .has-danger input{border:1px solid red !important;}
+.has-danger label{color:red !important;}
+
   
   .form-control-feedback
   {
   	position: relative;
   	width:100%;
+  	color:red;
   }
