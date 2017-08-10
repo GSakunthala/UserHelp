@@ -2,43 +2,40 @@ import Ember from 'ember';
 import {
   UserValidations
 } from './validations';
+import errorjson from '../../config/errorjson';
 
 
 export default Ember.Component.extend(UserValidations,{
 userObj:'',
-checkValidHours()
+showStatusMessage()
 	{
-		let today = moment();
-				let uk_time = moment.tz(new Date(), "Europe/London");
-				
-				let day = uk_time.day();
-			
-				let hour = uk_time.hour();
-				//let message = `Sorry there's no one available right now. Please leave your details below and we'll call you`;
-				let message = errorjson.common_msg;
-				if(day == 0 || day == 6 || (day == 5 && hour>17)) //weekend
+		
+				let uk_date = moment.tz(new Date(), "Europe/London");
+				let day = uk_date.day();
+				let hour = uk_date.hour();
+				let message = errorjson.notAvailableMessage;
+				if(day == 0 || day == 6 || (day == 5 && hour>17))
 				{
-						this.set('displayMsg',message + `after 8:30am on Monday`);
+						this.set('displayMsg',`${message}  ${errorjson.callAfterWeekend}`);
 				}
 				else if(hour>17)
 				{				
-					this.set('displayMsg',`${message}after 8:30am tomorrow`);
+					this.set('displayMsg',`${message} ${errorjson.callTomorrow}`);
 
 				}
-				else if(hour >= 8.30 && hour<17) //weekdays
+				else if(hour >= 8.30 && hour<17) 
 				{
-				this.set('displayMsg',`${message} within the next 15 minutes`);
+				this.set('displayMsg',`${message} ${errorjson.callShortly}`);
 
 				}
-				else if(hour>=0 && hour<8.30) //monday mrg
+				else if(hour>=0 && hour<8.30) 
 				{
-				this.set('displayMsg',`${message} after 8:30am today`);
+				this.set('displayMsg',`${message} ${errorjson.callAfterDayStarts}`);
 
 				}
-			
 				else
 				{
-					this.set('displayMsg',`We'll call back.`);
+					this.set('displayMsg',`${errorjson.callImmediately}`);
 				}
 
 	},
@@ -49,7 +46,7 @@ checkValidHours()
 			let userDetails = 
 			{
 				'FirstName' : this.get('firstName'),	
-				'LastName' : this.get('surname')	,
+				'LastName' : this.get('lastName')	,
 				'Email' : this.get('email'),
 				'Phone' : this.get('phone')	} 
 
@@ -59,7 +56,7 @@ this.setProperties(
     			'isValidForm':true
     		}
     		);
-		this.checkValidHours();		}
+		this.showStatusMessage();		}
 	}
 
 
