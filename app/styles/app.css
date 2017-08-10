@@ -1,0 +1,7 @@
+.has-danger input{border:1px solid red !important;}
+  
+  .form-control-feedback
+  {
+  	position: relative;
+  	width:100%;
+  }
